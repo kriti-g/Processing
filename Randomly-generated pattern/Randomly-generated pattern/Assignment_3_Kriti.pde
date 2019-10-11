@@ -1,19 +1,11 @@
 /** //<>//
  NOTES:
- 
+
  left/right keys to switch between colour palettes
  left-click to refresh
  right-click to pause/play
  'c' or 'C' to clear the drawn pattern
  's' or 'S' to take a screenshot
- 
- Post-crit:
- - Changed boundary-making conditions so no sphere is trapped in spaces too small for it (glitching its movement)
- which also makes the larger pattern more aesthetically pleasing
- - Added palette feature to make colours more deliberate
- - Length of trail and velocity of ball increases the larger the boundary area, so larger patterns are more visible, attractive
-   + smaller ones don't become too dense
- 
  **/
 
 
@@ -34,20 +26,20 @@ int palInd;
 void setup() {
   colorMode(HSB, 360, 100, 100);
 
-  PALETTE_ONE = new color[] { color(5.61, 0, 93.73), 
-    color(5.61, 74.03, 90.59), color(200.87, 34.86, 25.88), color(202.11, 37.62, 39.61), 
+  PALETTE_ONE = new color[] { color(5.61, 0, 93.73),
+    color(5.61, 74.03, 90.59), color(200.87, 34.86, 25.88), color(202.11, 37.62, 39.61),
     color(198.18, 14.86, 87.06) };
 
-  PALETTE_TWO = new color[] { color(51.76, 21.07, 94.9), 
-    color(34.34, 59.67, 95.29), color(0, 60, 94.12), color(165.6, 26.32, 74.51), 
+  PALETTE_TWO = new color[] { color(51.76, 21.07, 94.9),
+    color(34.34, 59.67, 95.29), color(0, 60, 94.12), color(165.6, 26.32, 74.51),
     color(338.82, 18.48, 36.08) };
 
-  PALETTE_THREE = new color[] { color(162.44, 50.8, 75.1), 
-    color(168.86, 100, 54.9), color(174.78, 100, 45.1), color(180.66, 100, 35.69), 
+  PALETTE_THREE = new color[] { color(162.44, 50.8, 75.1),
+    color(168.86, 100, 54.9), color(174.78, 100, 45.1), color(180.66, 100, 35.69),
     color(187.5, 100, 25.1) };
 
-  PALETTE_FOUR = new color[] { color(102.5, 10.81, 87.06), 
-    color(180.65, 54.97, 67.06), color(201.32, 71.7, 41.57), color(165, 36.36, 25.88), 
+  PALETTE_FOUR = new color[] { color(102.5, 10.81, 87.06),
+    color(180.65, 54.97, 67.06), color(201.32, 71.7, 41.57), color(165, 36.36, 25.88),
     color(95, 14.91, 63.14) };
 
   PALETTES = new color[][] { PALETTE_ONE, PALETTE_TWO, PALETTE_THREE, PALETTE_FOUR };
@@ -93,7 +85,7 @@ void initBounds() {
   }
   for (int i = 0; i < NUM_BOXES; i++) {
     int[] pick = new int[]{-1, 1};
-    balls[i] = new Ball(new PVector((temp.get(i)[0].x + temp.get(i)[1].x) / 2, (temp.get(i)[0].y + temp.get(i)[1].y)/2), 
+    balls[i] = new Ball(new PVector((temp.get(i)[0].x + temp.get(i)[1].x) / 2, (temp.get(i)[0].y + temp.get(i)[1].y)/2),
       new PVector(pick[(int) random(2)], pick[(int) random(2)]));
     balls[i].addBounds(temp.get(i));
   }
@@ -117,7 +109,7 @@ void keyPressed() {
   // since the code responds to arrow keys, we use keycodes
   if (key == CODED) {
     switch(keyCode) {
-    case RIGHT : 
+    case RIGHT :
       if (palInd == PALETTES.length - 1) {
         palInd = 0;
       } else {
@@ -126,8 +118,8 @@ void keyPressed() {
       background(PALETTES[palInd][0]);
       updateColours();
       break;
-    case LEFT : 
-      if (palInd == 0) { 
+    case LEFT :
+      if (palInd == 0) {
         palInd = PALETTES.length - 1;
       } else {
         palInd--;
@@ -135,7 +127,7 @@ void keyPressed() {
       background(PALETTES[palInd][0]);
       updateColours();
       break;
-    default: 
+    default:
       break;
     }
   } else if (key == 's' || key == 'S') {
@@ -151,9 +143,9 @@ void mousePressed() {
     setup();
   }
   if (mouseButton == RIGHT) {
-    if (looping) { 
+    if (looping) {
       noLoop();
-    } else { 
+    } else {
       loop();
     }
   }
